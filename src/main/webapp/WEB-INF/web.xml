@@ -1,0 +1,29 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <display-name>France Connect Stub</display-name>
+    <description>France Connect Stub</description>
+    <distributable />
+    <servlet>
+        <servlet-name>authorize</servlet-name>
+        <servlet-class>name.chabs.france.connect.stub.Authorize</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authorize</servlet-name>
+        <url-pattern>/api/v1/authorize</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>identify</servlet-name>
+        <servlet-class>name.chabs.france.connect.stub.Identify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>identify</servlet-name>
+        <url-pattern>/identify</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>token</servlet-name>
+        <servlet-class>name.chabs.france.connect.stub.Token</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>token</servlet-name>
+        <url-pattern>/api/v1/token</url-pattern>
+    </servlet-mapping>
+</web-app>
