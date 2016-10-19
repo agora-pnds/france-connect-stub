@@ -26,4 +26,13 @@
         <servlet-name>token</servlet-name>
         <url-pattern>/api/v1/token</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>userinfo</servlet-name>
+        <servlet-class>name.chabs.france.connect.stub.Userinfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userinfo</servlet-name>
+        <url-pattern>/api/v1/userinfo</url-pattern>
+    </servlet-mapping>
 </web-app>

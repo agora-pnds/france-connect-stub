@@ -1,21 +1,42 @@
 package name.chabs.france.connect.stub;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created by tchabaud on 15/10/16.
  * Stub for Token France Connect endpoint.
  */
 public class Token extends HttpServlet {
+
+    /** */
+    private static final long serialVersionUID = 1L;
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        my $jws_token = encode_jwt(payload=>$token, extra_headers=>{typ=>'JWT'}, alg=>'HS256', key=>'2222222222222222222222222222222222222222222222222222222222222222');
-//        print "Content-type: application/json; charset=utf-8\n\n{'access_token':'$jws_token', 'token_type':'Bearer', 'expires_in':3600, 'id_token':'$jws_token'}\n";
-        final String token = "{ \"aud\": \"++\", \"exp\":" + new Date() + 3600 + ", \"iat\":\""++"\", \"iss\":"++", \"sub\":\""++"\", \"idp\":\"FC\", \"nonce\":\""+nonce+"\"}";
+    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
+            IOException {
+
+        final String email = req.getParameter("code");
+
+        if (!UserEnum.userExists(email)) {
+            throw new RuntimeException("pas d'utilisateur dans l'enum");
+        }
+
+        final String json = "{\"access_token\":\"" + UserEnum.getToken(email) + "\", \"expires_in\":"
+                + new Date().getTime() + 3600 + ", \"token_type\":\"Bearer\", \"id_token\":\"" + email + "\"}";
+
+        final String referer = req.getHeader("referer");
+        System.out.println(referer);
+
+        resp.setContentType("application/json");
+        final PrintWriter out = resp.getWriter();
+        out.print(json);
+        out.flush();
     }
 }
