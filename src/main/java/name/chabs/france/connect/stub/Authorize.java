@@ -24,6 +24,7 @@ public class Authorize extends HttpServlet {
             IOException {
         req.getSession().setAttribute("state", req.getParameter("state"));
         req.getSession().setAttribute("redirect_uri", req.getParameter("redirect_uri"));
+        req.getSession().setAttribute("client_id", req.getParameter("client_id"));
 
         final String scope = URLEncoder.encode(req.getParameter("scope"), "UTF-8");
         final String response_type = URLEncoder.encode(req.getParameter("response_type"), "UTF-8");
@@ -31,6 +32,7 @@ public class Authorize extends HttpServlet {
         final String redirect_uri = URLEncoder.encode(req.getParameter("redirect_uri"), "UTF-8");
         final String state = URLEncoder.encode(req.getParameter("state"), "UTF-8");
         final String client_id = URLEncoder.encode(req.getParameter("client_id"), "UTF-8");
+
         final StringBuilder uri = new StringBuilder("/index.jsp").append("?") //
                 .append("scope").append('=').append(scope) //
                 .append("&response_type").append('=').append(response_type) //

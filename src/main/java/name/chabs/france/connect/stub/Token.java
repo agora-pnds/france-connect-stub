@@ -28,11 +28,8 @@ public class Token extends HttpServlet {
             throw new RuntimeException("pas d'utilisateur dans l'enum");
         }
 
-        final String json = "{\"access_token\":\"" + UserEnum.getToken(email) + "\", \"expires_in\":"
-                + new Date().getTime() + 3600 + ", \"token_type\":\"Bearer\", \"id_token\":\"" + email + "\"}";
-
-        final String referer = req.getHeader("referer");
-        System.out.println(referer);
+        final String json = "{\"access_token\":\"" + email + "\", \"expires_in\":" + new Date().getTime() + 3600
+                + ", \"token_type\":\"Bearer\", \"id_token\":\"" + UserEnum.getToken(email) + "\"}";
 
         resp.setContentType("application/json");
         final PrintWriter out = resp.getWriter();

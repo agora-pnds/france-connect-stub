@@ -3,6 +3,7 @@ package name.chabs.france.connect.stub;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +23,12 @@ public class Identify extends HttpServlet {
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException {
 
-        final String email = req.getParameter("email");
+        final String email = URLEncoder.encode(req.getParameter("email"), "UTF-8");
         final String state = (String) req.getSession().getAttribute("state");
         final String redirect_uri = (String) req.getSession().getAttribute("redirect_uri");
 
         final StringBuilder uri = new StringBuilder(redirect_uri);
         uri.append("?").append("code=").append(email).append("&state=").append(state);
-        System.out.println(uri.toString());
 
         final URI redirectUri;
         try {
@@ -36,6 +36,9 @@ public class Identify extends HttpServlet {
         } catch (final URISyntaxException e) {
             throw new ServletException(e);
         }
-        req.getRequestDispatcher(redirectUri.toString());
+        //req.getRequestDispatcher(redirectUri.toString());
+
+        resp.setContentType("Content-type: text/html");
+        resp.sendRedirect(redirectUri.toString());
     }
 }

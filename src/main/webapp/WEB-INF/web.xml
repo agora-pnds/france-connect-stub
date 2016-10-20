@@ -2,6 +2,12 @@
     <display-name>France Connect Stub</display-name>
     <description>France Connect Stub</description>
     <distributable />
+    
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
+        <param-value>BSESSIONID</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>authorize</servlet-name>
         <servlet-class>name.chabs.france.connect.stub.Authorize</servlet-class>
