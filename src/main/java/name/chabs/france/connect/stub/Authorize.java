@@ -25,7 +25,9 @@ public class Authorize extends HttpServlet {
         req.getSession().setAttribute("state", req.getParameter("state"));
         req.getSession().setAttribute("redirect_uri", req.getParameter("redirect_uri"));
         req.getSession().setAttribute("client_id", req.getParameter("client_id"));
-
+        req.getSession().setAttribute("nonce", req.getParameter("nonce"));
+        
+        
         final String scope = URLEncoder.encode(req.getParameter("scope"), "UTF-8");
         final String response_type = URLEncoder.encode(req.getParameter("response_type"), "UTF-8");
         final String nonce = URLEncoder.encode(req.getParameter("nonce"), "UTF-8");

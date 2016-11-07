@@ -1,0 +1,107 @@
+{
+  "_type": "export",
+  "__export_format": 1,
+  "__export_date": "2016-10-29T15:55:54.841Z",
+  "__export_source": "insomnia.chrome.app:v2.7.0",
+  "items": [
+    {
+      "_type": "request_group",
+      "_id": "grp_1477730450052",
+      "name": "France connect",
+      "environments": {},
+      "requests": [
+        {
+          "_type": "request",
+          "_id": "req_1477737092431",
+          "url": "http://localhost:19999/api/v1/authorize?response_type=code&client_id=1111111111111111111111111111111111111111111111111111111111111111&scope=openid+gender+birthdate+birthcountry+birthplace+given_name+family_name+email+address+preferred_username+phone&redirect_uri=http%3A%2F%2Flocalhost%3A19999%2Findex.jsp&nonce=8791ff4f78e3&state=a02673fc360d",
+          "method": "GET",
+          "body": "{}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "AUtorize"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1477743810114",
+          "url": "http://localhost:19999/identify",
+          "method": "POST",
+          "body": "{}",
+          "headers": [],
+          "params": [
+            {
+              "name": "email",
+              "value": "test@test.fr"
+            }
+          ],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Identify"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1477730450052",
+          "url": "http://localhost:19999/api/v1/token",
+          "method": "POST",
+          "body": "{}",
+          "headers": [],
+          "params": [
+            {
+              "name": "code",
+              "value": "test@test.fr"
+            }
+          ],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Token"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1477753392908",
+          "url": "http://localhost:19999/api/v1/userinfo",
+          "method": "GET",
+          "body": "{}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkR1Z6ZEVCMFpYTjBMbVp5IiwiYXVkIjoiWm5Oa1puTmtabk5rWm5Oa1puTmtabk5rWmc9PSIsImV4cCI6MTQ3Nzc1NjQ4NSwiaWF0IjoxNDc3NzU2MTI1LCJpc3MiOiJodHRwOi8vaW1wb3RzLWZyYW5jZWNvbm5lY3QuZnIiLCJub25jZSI6Ik9EYzVNV1ptTkdZM09HVXoifQ.3KqKIQazMwkoFSYHRte9Hsu0cxg0xtJFut2rFWRYRVw"
+            }
+          ],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "UserInfo"
+        }
+      ]
+    }
+  ]
+}
