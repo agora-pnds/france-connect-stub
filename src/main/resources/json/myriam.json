@@ -1,0 +1,18 @@
+{
+  "sub": "4d70007458c9b2549bcc5d5f026220c64f76b1e4969fe1e27ed2bac2e79508abv1",
+  "acr": "eidas2",
+  "gender": "female",
+  "birthdate": "1981-04-21",
+  "birthcountry": "99100",
+  "birthplace": "49007",
+  "given_name": "Myriam",
+  "family_name": "Lebrun",
+  "email": "m.lebrun@gmail.com",
+  "address": {
+  	"formatted": "26 rue Désaix, 75015 Paris",
+  	"street_address": "26 rue Désaix",
+  	"locality": "Paris",
+  	"region": "Île-de-France",
+  	"postal_code": "75015",
+  	"country": "France"}
+}

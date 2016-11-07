@@ -22,7 +22,7 @@ public class Identify extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException {
-
+        
         final String email = URLEncoder.encode(req.getParameter("email"), "UTF-8");
         final String state = (String) req.getSession().getAttribute("state");
         final String redirect_uri = (String) req.getSession().getAttribute("redirect_uri");
@@ -36,9 +36,11 @@ public class Identify extends HttpServlet {
         } catch (final URISyntaxException e) {
             throw new ServletException(e);
         }
-        //req.getRequestDispatcher(redirectUri.toString());
-
+        
         resp.setContentType("Content-type: text/html");
         resp.sendRedirect(redirectUri.toString());
+        
+        //Ajout de la correspondance email/nonce dans le cache applicatif
+        CacheApplicatif.getInstance().put(email ,(String) req.getSession().getAttribute("nonce"));       
     }
 }

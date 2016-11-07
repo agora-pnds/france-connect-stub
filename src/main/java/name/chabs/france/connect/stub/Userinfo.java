@@ -5,6 +5,7 @@ package name.chabs.france.connect.stub;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,7 @@ public class Userinfo extends HttpServlet {
 
         final String json = UserEnum.getJsonForToken(token);
 
+        resp.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
         resp.setContentType("application/json");
         final PrintWriter out = resp.getWriter();
         out.print(json);

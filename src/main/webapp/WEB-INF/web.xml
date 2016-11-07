@@ -41,4 +41,13 @@
         <servlet-name>userinfo</servlet-name>
         <url-pattern>/api/v1/userinfo</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>name.chabs.france.connect.stub.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/api/v1/logout</url-pattern>
+    </servlet-mapping>
 </web-app>
