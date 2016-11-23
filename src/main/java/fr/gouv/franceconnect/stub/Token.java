@@ -27,7 +27,7 @@ public class Token extends HttpServlet {
 
        
         final String email = req.getParameter("code");
-        final String nonce = CacheApplicatif.getInstance().get(URLEncoder.encode(email, "UTF-8"));
+        final String nonce = StubCache.getInstance().get(URLEncoder.encode(email, "UTF-8"));
         
           
         if(nonce == null || nonce.trim().length() == 0){
@@ -50,6 +50,6 @@ public class Token extends HttpServlet {
         out.flush();
         
         //On vide le cache car utilisation unique
-        CacheApplicatif.getInstance().remove(URLEncoder.encode(email, "UTF-8"));
+        StubCache.getInstance().remove(URLEncoder.encode(email, "UTF-8"));
     }
 }

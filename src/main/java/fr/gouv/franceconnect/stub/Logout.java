@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.gouv.franceconnect.stub;
 
 import javax.servlet.ServletException;

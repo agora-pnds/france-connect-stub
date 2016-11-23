@@ -40,6 +40,6 @@ public class Identify extends HttpServlet {
         resp.sendRedirect(redirectUri.toString());
         
         //Ajout de la correspondance email/nonce dans le cache applicatif
-        CacheApplicatif.getInstance().put(email ,(String) req.getSession().getAttribute("nonce"));       
+        StubCache.getInstance().put(email, (String) req.getSession().getAttribute("nonce"));
     }
 }

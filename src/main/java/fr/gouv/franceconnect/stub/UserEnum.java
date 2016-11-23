@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.gouv.franceconnect.stub;
 
 import io.jsonwebtoken.JwtBuilder;
@@ -11,6 +8,7 @@ import io.jsonwebtoken.impl.Base64Codec;
 import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -20,8 +18,8 @@ import java.util.Scanner;
  * @author c82asir
  * 
  */
-public enum UserEnum {
-		
+enum UserEnum {
+
     TEST("test@test.fr", "test"),
     MYRIAM("m.lebrun@gmail.com", "myriam");
 
@@ -51,16 +49,16 @@ public enum UserEnum {
         }
     };
 
-    private String email;
+    private final String email;
 
-    private String id;
+    private final String id;
 
     UserEnum(final String email, final String id) {
         this.email = email;
         this.id = id;
     }
 
-    public static UserEnum getUserForToken(final String email) {
+    private static UserEnum getUserForToken(final String email) {
         for (final UserEnum user : UserEnum.values()) {
             if (user.email.equals(email)) {
                 return user;
@@ -87,17 +85,19 @@ public enum UserEnum {
     }
 
     public static String getJsonForToken(final String token) {
-        //Dans le cas du bouchon le token == email
+        // Dans le cas du bouchon le token == email
         final UserEnum user = getUserForToken(token);
+        final String userId = (user != null) ? user.id : "";
 
-        final ClassLoader classLoader = UserEnum.class.getClassLoader();
-        final File file = new File(classLoader.getResource("json/" + user.id + ".json").getFile());
+        final URL jsonFile = UserEnum.class.getClassLoader().getResource("json/" + userId + ".json");
+        final String fileName = (jsonFile != null) ? jsonFile.getFile() : "";
+        final File file = new File(fileName);
 
-        final StringBuilder result = new StringBuilder("");
+        final StringBuilder result = new StringBuilder();
         try (Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.displayName())) {
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
-                result.append(line).append("\n");
+                result.append(line).append('\n');
             }
             scanner.close();
         } catch (final IOException e) {
