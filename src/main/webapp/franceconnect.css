@@ -2,8 +2,7 @@
     all: initial;
     color: #0b6ba8;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #ffffff;
-    background-image: none;
+    background: #ffffff none;
     border: 1px solid #ccc;
     display: inline-block;
     margin-bottom: 0;
