@@ -1,16 +1,15 @@
 /**
  * 
  */
-package name.chabs.france.connect.stub;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+package fr.gouv.franceconnect.stub;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author c82asir

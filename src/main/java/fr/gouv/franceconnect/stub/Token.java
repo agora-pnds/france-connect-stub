@@ -1,14 +1,13 @@
-package name.chabs.france.connect.stub;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.Date;
+package fr.gouv.franceconnect.stub;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Date;
 
 /**
  * Created by tchabaud on 15/10/16.
@@ -28,7 +27,7 @@ public class Token extends HttpServlet {
 
        
         final String email = req.getParameter("code");
-        final String nonce = (String) CacheApplicatif.getInstance().get(URLEncoder.encode(email, "UTF-8"));
+        final String nonce = CacheApplicatif.getInstance().get(URLEncoder.encode(email, "UTF-8"));
         
           
         if(nonce == null || nonce.trim().length() == 0){

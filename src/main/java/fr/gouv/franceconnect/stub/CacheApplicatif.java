@@ -1,4 +1,4 @@
-package name.chabs.france.connect.stub;
+package fr.gouv.franceconnect.stub;
 
 import java.util.HashMap;
 import java.util.Map;

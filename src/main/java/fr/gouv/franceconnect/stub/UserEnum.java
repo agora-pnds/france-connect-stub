@@ -1,21 +1,20 @@
 /**
  * 
  */
-package name.chabs.france.connect.stub;
+package fr.gouv.franceconnect.stub;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.Base64Codec;
 
+import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.Scanner;
-
-import javax.crypto.SecretKey;
 
 /**
  * @author c82asir
