@@ -27,7 +27,12 @@ public class Identify extends HttpServlet {
         final String redirect_uri = (String) req.getSession().getAttribute("redirect_uri");
 
         final StringBuilder uri = new StringBuilder(redirect_uri);
-        uri.append("?").append("code=").append(email).append("&state=").append(state);
+        if (redirect_uri.contains("?")) {
+            uri.append("&");
+        } else {
+            uri.append("?");
+        }
+        uri.append("code=").append(email).append("&state=").append(state);
 
         final URI redirectUri;
         try {
