@@ -1,5 +1,7 @@
 package fr.gouv.franceconnect.stub;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,15 +10,19 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.security.Security;
 
 /**
  * Created by tchabaud on 15/10/16.
  * Stub for France Connect authorize endpoint.
  */
 public class Authorize extends HttpServlet {
-
-    /** */
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public void init() {
+        Security.addProvider(new BouncyCastleProvider());
+    }
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,

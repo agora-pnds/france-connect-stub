@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.Date;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * Created by tchabaud on 15/10/16.
  * Stub for Token France Connect endpoint.
@@ -27,7 +29,7 @@ public class Token extends HttpServlet {
 
        
         final String email = req.getParameter("code");
-        final String nonce = StubCache.getInstance().get(URLEncoder.encode(email, "UTF-8"));
+        final String nonce = StubCache.getInstance().get(URLEncoder.encode(email, UTF_8.displayName()));
         
           
         if(nonce == null || nonce.trim().length() == 0){
@@ -50,6 +52,6 @@ public class Token extends HttpServlet {
         out.flush();
         
         //On vide le cache car utilisation unique
-        StubCache.getInstance().remove(URLEncoder.encode(email, "UTF-8"));
+        StubCache.getInstance().remove(URLEncoder.encode(email, UTF_8.displayName()));
     }
 }

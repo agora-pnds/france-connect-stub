@@ -9,6 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * Created by tchabaud on 15/10/16.
  * Find stub content from e-mail input by user.
@@ -21,8 +23,8 @@ public class Identify extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException {
-        
-        final String email = URLEncoder.encode(req.getParameter("email"), "UTF-8");
+
+        final String email = URLEncoder.encode(req.getParameter("email"), UTF_8.displayName());
         final String state = (String) req.getSession().getAttribute("state");
         final String redirect_uri = (String) req.getSession().getAttribute("redirect_uri");
 

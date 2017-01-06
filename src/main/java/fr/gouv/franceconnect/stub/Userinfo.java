@@ -9,16 +9,15 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author c82asir
- * 
+ * @author asirko
  */
 public class Userinfo extends HttpServlet {
 
-    /** */
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException,
             IOException {
         final String bearer = req.getHeader("Authorization");
         //le header contient 'Bearer <token>'

@@ -1,30 +1,35 @@
 package fr.gouv.franceconnect.stub;
 
+import fr.gouv.franceconnect.stub.exceptions.InvalidConfigurationException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.Base64Codec;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.Scanner;
 
+import static fr.gouv.franceconnect.stub.ConfigUtil.CONF;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
- * @author c82asir
- * 
- */
+ * Utility class to get user data.
+ *
+ * @author asirko
+ * @author tchabaud
+ *
+ * */
 enum UserEnum {
 
-    TEST("test@test.fr", "test"),
-    MYRIAM("m.lebrun@gmail.com", "myriam");
+    TEST("test@test.fr", "test");
 
-    private final static String SECRET = "2222222222222222222222222222222222222222222222222222222222222222";
-    private final static String CLIENT_ID = "1111111111111111111111111111111111111111111111111111111111111111";
+    private final static String SECRET = CONF.get("stub.franceconnect.config.oidc.clientsecret");
+    private final static String CLIENT_ID = CONF.get("stub.franceconnect.config.oidc.clientid");
 
     private static final Key KEY = new SecretKey() {
 
@@ -73,28 +78,41 @@ enum UserEnum {
 
     public static String getToken(final String email, String nonce, long expirationTime) {
         JwtBuilder builder = Jwts.builder();
-    	
+
         builder.setSubject(Base64Codec.BASE64.encode(email));
         builder.setAudience(CLIENT_ID);
         builder.setExpiration(new Date(expirationTime));
         builder.setIssuedAt(new Date());
-        builder.setIssuer("http://impots-franceconnect.fr");
+        builder.setIssuer(CONF.get("stub.franceconnect.config.oidc.issuer"));
         builder.claim("nonce", nonce);
-    	
-    	return builder.signWith(SignatureAlgorithm.HS256, KEY).compact();
+
+        return builder.signWith(SignatureAlgorithm.HS256, KEY).compact();
     }
 
     public static String getJsonForToken(final String token) {
-        // Dans le cas du bouchon le token == email
+        // For this stub, token == email
         final UserEnum user = getUserForToken(token);
         final String userId = (user != null) ? user.id : "";
 
-        final URL jsonFile = UserEnum.class.getClassLoader().getResource("json/" + userId + ".json");
-        final String fileName = (jsonFile != null) ? jsonFile.getFile() : "";
-        final File file = new File(fileName);
+        final String jsonDirPropName = "dir.stub";
+        final String jsonDir = System.getProperty(jsonDirPropName);
+        if (StringUtils.isNotBlank(jsonDir)) {
+            throw new InvalidConfigurationException("System property "
+                    + jsonDirPropName + " is not set or empty !");
+        }
+
+        final File jsonDirPath = new File(jsonDir);
+        if (!jsonDirPath.isDirectory()) {
+            throw new InvalidConfigurationException("System property "
+                    + jsonDirPropName + " does not point to a directory !");
+        }
+
+        final String filePath = jsonDirPath.getAbsolutePath()
+                + File.separatorChar + userId + ".json";
+        final File file = new File(filePath);
 
         final StringBuilder result = new StringBuilder();
-        try (Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.displayName())) {
+        try (Scanner scanner = new Scanner(file, UTF_8.displayName())) {
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
                 result.append(line).append('\n');

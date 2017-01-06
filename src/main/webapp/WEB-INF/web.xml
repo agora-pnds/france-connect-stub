@@ -2,12 +2,6 @@
     <display-name>France Connect Stub</display-name>
     <description>France Connect Stub</description>
     <distributable />
-    
-    <context-param>
-        <param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
-        <param-value>BSESSIONID</param-value>
-    </context-param>
-    
     <servlet>
         <servlet-name>authorize</servlet-name>
         <servlet-class>fr.gouv.franceconnect.stub.Authorize</servlet-class>
@@ -32,7 +26,6 @@
         <servlet-name>token</servlet-name>
         <url-pattern>/api/v1/token</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>userinfo</servlet-name>
         <servlet-class>fr.gouv.franceconnect.stub.Userinfo</servlet-class>
