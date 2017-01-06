@@ -5,7 +5,7 @@ a stub for France Connect OpenIdConnect provider (https://franceconnect.gouv.fr)
 
 # Prerequisite
 
-- [Java 8](https://java.com)
+- [Java 7](https://java.com)
 - [Maven](https://maven.apache.org)
 
 # Installation
