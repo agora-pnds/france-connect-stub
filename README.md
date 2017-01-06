@@ -7,12 +7,12 @@ a stub for France Connect OpenIdConnect provider (https://franceconnect.gouv.fr)
 
 - [Java 8](https://java.com)
 - [Maven](https://maven.apache.org)
-- [BouncyCastle JCA](https://www.bouncycastle.org/latest_releases.html)
 
 # Installation
 
 ```sh
 git clone https://github.com/tchabaud/france-connect-stub
-mvn clean compile install
-mvn jetty:run
+cd france-connect-stub
+mvn clean compile package
+java -jar target/france-connect-stub.jar -httpPort=1234 -Ddir.stub=$(realpath src/main/resources/json)
 ```
