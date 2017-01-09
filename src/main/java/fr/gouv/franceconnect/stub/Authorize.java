@@ -41,9 +41,11 @@ public class Authorize extends HttpServlet {
         final String state = URLEncoder.encode(req.getParameter("state"), "UTF-8");
         final String client_id = URLEncoder.encode(req.getParameter("client_id"), "UTF-8");
 
-        String contextPath = req.getContextPath();
-        if (StringUtils.isNotBlank(contextPath)) {
-            contextPath = contextPath + "/";
+        final String contextPath;
+        if (StringUtils.isBlank(req.getContextPath())) {
+            contextPath = "/";
+        } else {
+            contextPath = req.getContextPath() + "/";
         }
 
         final StringBuilder uri = new StringBuilder(contextPath).append("index.jsp").append("?") //
