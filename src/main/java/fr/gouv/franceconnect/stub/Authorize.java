@@ -1,19 +1,22 @@
 package fr.gouv.franceconnect.stub;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.security.Security;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by tchabaud on 15/10/16.
@@ -39,12 +42,12 @@ public class Authorize extends HttpServlet {
         req.getSession().setAttribute("client_id", req.getParameter("client_id"));
         req.getSession().setAttribute("nonce", req.getParameter("nonce"));
 
-        final String scope = URLEncoder.encode(req.getParameter("scope"), "UTF-8");
-        final String response_type = URLEncoder.encode(req.getParameter("response_type"), "UTF-8");
-        final String nonce = URLEncoder.encode(req.getParameter("nonce"), "UTF-8");
-        final String redirect_uri = URLEncoder.encode(req.getParameter("redirect_uri"), "UTF-8");
-        final String state = URLEncoder.encode(req.getParameter("state"), "UTF-8");
-        final String client_id = URLEncoder.encode(req.getParameter("client_id"), "UTF-8");
+        final String scope = URLEncoder.encode(req.getParameter("scope"), UTF_8.displayName());
+        final String response_type = URLEncoder.encode(req.getParameter("response_type"), UTF_8.displayName());
+        final String nonce = URLEncoder.encode(req.getParameter("nonce"), UTF_8.displayName());
+        final String redirect_uri = URLEncoder.encode(req.getParameter("redirect_uri"), UTF_8.displayName());
+        final String state = URLEncoder.encode(req.getParameter("state"), UTF_8.displayName());
+        final String client_id = URLEncoder.encode(req.getParameter("client_id"), UTF_8.displayName());
 
         final String contextPath;
         if (StringUtils.isBlank(req.getContextPath())) {

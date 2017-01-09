@@ -1,15 +1,16 @@
 package fr.gouv.franceconnect.stub;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.Date;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by tchabaud on 15/10/16.
@@ -33,11 +34,11 @@ public class Token extends HttpServlet {
         
           
         if(nonce == null || nonce.trim().length() == 0){
-        	throw new IllegalArgumentException("Aucun nonce trouve pour la session");
+            throw new IllegalArgumentException("No nonce found for this session.");
         }
         
         if (!UserEnum.userExists(email)) {
-            throw new RuntimeException("pas d'utilisateur dans l'enum");
+            throw new RuntimeException("No matching user found in json stubs.");
         }
         
         //Date d'expiration
@@ -47,6 +48,7 @@ public class Token extends HttpServlet {
                 + ", \"token_type\":\"Bearer\", \"id_token\":\"" + UserEnum.getToken(email, nonce, expirationTime) + "\"}";
 
         resp.setContentType("application/json");
+        resp.setCharacterEncoding(UTF_8.displayName());
         final PrintWriter out = resp.getWriter();
         out.print(json);
         out.flush();
