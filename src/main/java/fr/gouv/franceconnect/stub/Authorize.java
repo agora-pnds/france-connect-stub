@@ -63,7 +63,5 @@ public class Authorize extends HttpServlet {
         }
         resp.setContentType("Content-type: text/html");
         resp.sendRedirect(redirectUri.toString());
-
-        //resp.sendRedirect("/index.jsp");
     }
 }
