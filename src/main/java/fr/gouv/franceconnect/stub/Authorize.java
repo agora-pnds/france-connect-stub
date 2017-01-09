@@ -1,5 +1,6 @@
 package fr.gouv.franceconnect.stub;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.servlet.ServletException;
@@ -40,7 +41,12 @@ public class Authorize extends HttpServlet {
         final String state = URLEncoder.encode(req.getParameter("state"), "UTF-8");
         final String client_id = URLEncoder.encode(req.getParameter("client_id"), "UTF-8");
 
-        final StringBuilder uri = new StringBuilder("/index.jsp").append("?") //
+        String contextPath = req.getContextPath();
+        if (StringUtils.isNotBlank(contextPath)) {
+            contextPath = contextPath + "/";
+        }
+
+        final StringBuilder uri = new StringBuilder(contextPath).append("index.jsp").append("?") //
                 .append("scope").append('=').append(scope) //
                 .append("&response_type").append('=').append(response_type) //
                 .append("&nonce").append('=').append(nonce) //
