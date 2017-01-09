@@ -1,6 +1,8 @@
 package fr.gouv.franceconnect.stub;
 
 import fr.gouv.franceconnect.stub.exceptions.InvalidConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +18,9 @@ enum ConfigUtil {
     CONF;
 
     private static final String CONF_PROPERTY = "config.properties";
+
+    private static final Logger logger = LoggerFactory.getLogger(ConfigUtil.class);
+
 
     /**
      * Configuration holder.
@@ -36,6 +41,11 @@ enum ConfigUtil {
         final File configFile = new File(configFilePath);
         try (final FileInputStream inputStream = new FileInputStream(configFile)) {
             config.load(inputStream);
+            logger.info("Configuration enabled : ");
+            for (String property : config.stringPropertyNames()) {
+                final String value = config.getProperty(property);
+                logger.info("{}={}", property, value);
+            }
         } catch (NullPointerException | IOException e) {
             throw new InvalidConfigurationException("Configuration introuvable. Vérifier la valeur de la propriété "
                     + CONF_PROPERTY, e);

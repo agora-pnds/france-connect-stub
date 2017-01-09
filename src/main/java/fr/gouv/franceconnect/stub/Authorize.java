@@ -2,6 +2,8 @@ package fr.gouv.franceconnect.stub;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +22,13 @@ import java.security.Security;
 public class Authorize extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private static final Logger logger = LoggerFactory.getLogger(Authorize.class);
+
     @Override
     public void init() {
+        logger.info("Begin Bouncy Castle initialization ...");
         Security.addProvider(new BouncyCastleProvider());
+        logger.info("Bouncy Castle initialization successful.");
     }
 
     @Override
@@ -32,8 +38,7 @@ public class Authorize extends HttpServlet {
         req.getSession().setAttribute("redirect_uri", req.getParameter("redirect_uri"));
         req.getSession().setAttribute("client_id", req.getParameter("client_id"));
         req.getSession().setAttribute("nonce", req.getParameter("nonce"));
-        
-        
+
         final String scope = URLEncoder.encode(req.getParameter("scope"), "UTF-8");
         final String response_type = URLEncoder.encode(req.getParameter("response_type"), "UTF-8");
         final String nonce = URLEncoder.encode(req.getParameter("nonce"), "UTF-8");
