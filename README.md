@@ -19,7 +19,7 @@ mvn clean compile package
 # Usage
 
 - Set up a directory with json stubs (*$JSON_FOLDER*)
-Launch jar with following command
+- Launch jar with following command
 ```
 java -jar target/france-connect-stub.jar -httpPort=1234 -Ddir.stub=$(JSON_FOLDER)
 ```
