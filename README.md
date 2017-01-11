@@ -33,3 +33,10 @@ openidconnect.token.endpoint=http://localhost:1234/fc/token
 openidconnect.userinfo.endpoint=http://localhost:1234/fc/userinfo
 openidconnect.logout.endpoint=http://localhost:1234/fc/logout
 ```
+
+# Credits
+
+- [A. Sirko](https://github.com/asirko) : initial development.
+- [D. Gombert](https://github.com/dgombert) : token generation and signature.
+- [L. Breil](https://plus.google.com/110296642077310408331) : improved GET parameters handling
+- [T. Chabaud](https://github.com/tchabaud) : packaging, minor fixes.
