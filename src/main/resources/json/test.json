@@ -9,10 +9,11 @@
   "family_name": "Mercier",
   "email": "eric.mercier@france.fr",
   "address": {
-  	"formatted": "26 rue Désaix, 75015 Paris",
-  	"street_address": "26 rue Désaix",
-  	"locality": "Paris",
-  	"region": "Île-de-France",
-  	"postal_code": "75015",
-  	"country": "France"}
+    "formatted": "26 rue Désaix, 75015 Paris",
+    "street_address": "26 rue Désaix",
+    "locality": "Paris",
+    "region": "Île-de-France",
+    "postal_code": "75015",
+    "country": "France"
+  }
 }
