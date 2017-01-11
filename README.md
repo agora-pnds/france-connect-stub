@@ -28,7 +28,7 @@ java -jar target/france-connect-stub.jar -httpPort=1234 -Ddir.stub=$(JSON_FOLDER
 ```
 openidconnect.client.id=1111111111111111111111111111111111111111111111111111111111111111
 openidconnect.client.secret=2222222222222222222222222222222222222222222222222222222222222222
-openidconnect.authorize.url=http://localhost:1234/fc/authorize
+openidconnect.authorize.endpoint=http://localhost:1234/fc/authorize
 openidconnect.token.endpoint=http://localhost:1234/fc/token
 openidconnect.userinfo.endpoint=http://localhost:1234/fc/userinfo
 openidconnect.logout.endpoint=http://localhost:1234/fc/logout
