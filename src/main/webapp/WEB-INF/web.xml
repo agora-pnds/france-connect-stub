@@ -4,7 +4,7 @@
     <distributable />
     <servlet>
         <servlet-name>authorize</servlet-name>
-        <servlet-class>fr.gouv.franceconnect.stub.Authorize</servlet-class>
+        <servlet-class>fr.gouv.franceconnect.stub.api.Authorize</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>authorize</servlet-name>
@@ -12,7 +12,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>identify</servlet-name>
-        <servlet-class>fr.gouv.franceconnect.stub.Identify</servlet-class>
+        <servlet-class>fr.gouv.franceconnect.stub.api.Identify</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>identify</servlet-name>
@@ -20,7 +20,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>token</servlet-name>
-        <servlet-class>fr.gouv.franceconnect.stub.Token</servlet-class>
+        <servlet-class>fr.gouv.franceconnect.stub.api.Token</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>token</servlet-name>
@@ -28,7 +28,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>userinfo</servlet-name>
-        <servlet-class>fr.gouv.franceconnect.stub.Userinfo</servlet-class>
+        <servlet-class>fr.gouv.franceconnect.stub.api.Userinfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>userinfo</servlet-name>
@@ -37,7 +37,7 @@
     
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>fr.gouv.franceconnect.stub.Logout</servlet-class>
+        <servlet-class>fr.gouv.franceconnect.stub.api.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>logout</servlet-name>

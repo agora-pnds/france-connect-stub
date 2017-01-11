@@ -1,4 +1,4 @@
-package fr.gouv.franceconnect.stub;
+package fr.gouv.franceconnect.stub.api;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
