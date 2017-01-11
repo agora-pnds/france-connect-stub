@@ -1,6 +1,6 @@
 # Description
 
-Thanks to great work from [A. Sirko](https://github.com/asirko) and [D. Gombert](https://github.com/dgombert) we now have 
+Thanks to great work from [A. Sirko](https://github.com/asirko), [D. Gombert](https://github.com/dgombert) and [L. Breil](https://plus.google.com/110296642077310408331) we now have 
 a stub for France Connect OpenIdConnect provider (https://franceconnect.gouv.fr)
 
 # Prerequisite
