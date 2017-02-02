@@ -21,7 +21,7 @@ mvn clean compile package
 - Set up a directory with json stubs (*$JSON_FOLDER*)
 - Launch jar with following command
 ```
-java -jar target/france-connect-stub.jar -httpPort=1234 -Ddir.stub=$(JSON_FOLDER)
+java -jar target/france-connect-stub.jar -httpPort=1234 -Ddir.stub=${JSON_FOLDER}
 ```
 - Set up your France Connect service as following :
 
