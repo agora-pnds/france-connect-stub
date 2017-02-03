@@ -1,6 +1,5 @@
 package fr.gouv.franceconnect.stub.api;
 
-import static fr.gouv.franceconnect.stub.util.NonceCache.NONCE_CACHE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
@@ -12,6 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+
+import fr.gouv.franceconnect.stub.util.ConfigUtil;
 
 /**
  * @author tchabaud
@@ -29,6 +32,11 @@ public class Identify extends HttpServlet {
         final String redirect_uri = (String) req.getSession().getAttribute("redirect_uri");
 
         final StringBuilder uri = new StringBuilder(redirect_uri);
+
+        if (StringUtils.isBlank(redirect_uri)) {
+            throw new ServletException("No redirect_uri provided !");
+        }
+
         if (redirect_uri.contains("?")) {
             uri.append("&");
         } else {
@@ -48,6 +56,10 @@ public class Identify extends HttpServlet {
 
         // Store email <-> nonce association
         final String nonce = (String) req.getSession().getAttribute("nonce");
-        NONCE_CACHE.nonces().put(email, nonce);
+        if (StringUtils.isNotBlank(nonce)) {
+            req.getSession().setAttribute(ConfigUtil.NONCE_ATTR_NAME, nonce);
+        } else {
+            throw new ServletException("No nonce provided !");
+        }
     }
 }

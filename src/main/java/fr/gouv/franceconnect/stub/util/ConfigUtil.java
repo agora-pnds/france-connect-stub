@@ -25,10 +25,11 @@ public enum ConfigUtil {
     public static final String CLIENT_SECRET = "stub.franceconnect.config.oidc.clientsecret";
     public static final String CLIENT_ID = "stub.franceconnect.config.oidc.clientid";
     public static final String ISSUER = "stub.franceconnect.config.oidc.issuer";
+    // Session attribute used to store nonce
+    public static final String NONCE_ATTR_NAME = "NONCE";
     private static final String CONF_PROPERTY = "/config.properties";
     // System property used to define json stub directory
     private static final String JSON_DIR = "dir.stub";
-
     private final Logger logger = LoggerFactory.getLogger(ConfigUtil.class);
 
     /**

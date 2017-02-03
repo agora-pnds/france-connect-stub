@@ -1,11 +1,9 @@
 package fr.gouv.franceconnect.stub.api;
 
-import static fr.gouv.franceconnect.stub.util.NonceCache.NONCE_CACHE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -13,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.gouv.franceconnect.stub.util.CacheUtil;
+import fr.gouv.franceconnect.stub.util.ConfigUtil;
 
 /**
  * Stub for Token France Connect endpoint.
@@ -35,11 +35,12 @@ public class Token extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException {
-
         final String email = req.getParameter("code");
-        final String nonce = NONCE_CACHE.nonces().get(URLEncoder.encode(email, UTF_8.displayName()));
+        final String nonce = (String) req.getSession().getAttribute(ConfigUtil.NONCE_ATTR_NAME);
 
-        if (nonce == null || nonce.trim().length() == 0) {
+        // Remove nonce, one shot use
+        req.getSession().removeAttribute(ConfigUtil.NONCE_ATTR_NAME);
+        if (StringUtils.isBlank(nonce)) {
             throw new IllegalArgumentException("No nonce found for this session.");
         }
 
@@ -59,8 +60,6 @@ public class Token extends HttpServlet {
         out.print(json);
         out.flush();
 
-        // Remove nonce from nonces, one shot use
-        NONCE_CACHE.nonces().remove(URLEncoder.encode(email, UTF_8.displayName()));
         logger.info("Nonce removed from nonces for user {}", email);
     }
 }
