@@ -1,5 +1,7 @@
 package fr.gouv.franceconnect.stub.util;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -61,7 +63,7 @@ public enum UsersJsonCache {
                 } else {
                     try {
                         final byte[] data = CacheUtil.readData(f);
-                        userCache.put(email, new String(data));
+                        userCache.put(email, new String(data, UTF_8.displayName()));
                     } catch (IOException e) {
                         logger.error("No data read from file {}", f.getAbsolutePath());
                     }

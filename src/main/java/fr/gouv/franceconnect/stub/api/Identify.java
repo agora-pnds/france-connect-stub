@@ -1,5 +1,6 @@
 package fr.gouv.franceconnect.stub.api;
 
+import static fr.gouv.franceconnect.stub.util.SessionCache.CACHE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
@@ -14,11 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fr.gouv.franceconnect.stub.util.ConfigUtil;
-
 /**
  * @author tchabaud
- * Find stub content from e-mail input by user.
+ *         Find stub content from e-mail input by user.
  */
 public class Identify extends HttpServlet {
 
@@ -50,14 +49,14 @@ public class Identify extends HttpServlet {
         } catch (final URISyntaxException e) {
             throw new ServletException(e);
         }
-        
+
         resp.setContentType("Content-type: text/html");
         resp.sendRedirect(redirectUri.toString());
 
         // Store email <-> nonce association
         final String nonce = (String) req.getSession().getAttribute("nonce");
         if (StringUtils.isNotBlank(nonce)) {
-            req.getSession().setAttribute(ConfigUtil.NONCE_ATTR_NAME, nonce);
+            CACHE.put(email, nonce);
         } else {
             throw new ServletException("No nonce provided !");
         }

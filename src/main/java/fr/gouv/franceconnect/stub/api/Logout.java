@@ -21,8 +21,8 @@ public class Logout extends HttpServlet {
             IOException {
         // Redirect to uri in param
       String redirectUriParam = req.getParameter("post_logout_redirect_uri");
-      
-      final URI redirectUri;
+
+        final URI redirectUri;
       try {
           redirectUri = new URI(redirectUriParam);
       } catch (final URISyntaxException e) {

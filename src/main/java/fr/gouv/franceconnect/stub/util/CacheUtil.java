@@ -6,6 +6,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,7 +61,7 @@ public class CacheUtil {
      * @return email value extracted from json file f
      */
     static String getEmailFromJson(File f) throws IOException {
-        @SuppressWarnings("unchecked") HashMap<String, Object> result = (HashMap<String, Object>) new ObjectMapper().readValue(f, HashMap.class);
+        @SuppressWarnings("unchecked") HashMap<String, String> result = (HashMap<String, String>) new ObjectMapper().readValue(f, HashMap.class);
         return getJsonValue("email", result);
     }
 
@@ -67,13 +69,15 @@ public class CacheUtil {
      * @return true if user email is found in nonces
      */
     public static boolean userExists(final String email) {
-        return USER_CACHE.users().containsKey(email);
+
+        return USER_CACHE.users().containsKey(urlDecode(email));
     }
 
     public static String getToken(final String email, String nonce, long expirationTime) throws IOException {
         JwtBuilder builder = Jwts.builder();
-        @SuppressWarnings("unchecked") final HashMap<String, Object> data = (HashMap<String, Object>) new ObjectMapper().readValue(
-                USER_CACHE.users().get(email), HashMap.class);
+
+        @SuppressWarnings("unchecked") final HashMap<String, String> data = (HashMap<String, String>) new ObjectMapper().readValue(
+                USER_CACHE.users().get(urlDecode(email)), HashMap.class);
         builder.setSubject(getJsonValue("sub", data));
         builder.setAudience(CONF.get(ConfigUtil.CLIENT_ID));
         builder.setExpiration(new Date(expirationTime));
@@ -88,11 +92,11 @@ public class CacheUtil {
      * @param key      Key to find
      * @return String value corresponding to key in jsonData.
      */
-    private static String getJsonValue(final String key, final HashMap<String, Object> jsonData) {
+    private static String getJsonValue(final String key, final HashMap<String, String> jsonData) {
         for (Object keyObject : jsonData.keySet()) {
             final String currentKey = (String) keyObject;
             if (key.equals(currentKey)) {
-                return (String) jsonData.get(key);
+                return jsonData.get(key);
             }
         }
         return "";
@@ -116,5 +120,16 @@ public class CacheUtil {
      */
     public static String getJsonForToken(final String token) {
         return USER_CACHE.users().get(token);
+    }
+
+    private static String urlDecode(final String key) {
+        String decodedValue;
+        try {
+            decodedValue = URLDecoder.decode(key, UTF_8.displayName());
+        } catch (UnsupportedEncodingException e) {
+            logger.warn("Unable to decode key {}. Using raw value.", key);
+            decodedValue = key;
+        }
+        return decodedValue;
     }
 }

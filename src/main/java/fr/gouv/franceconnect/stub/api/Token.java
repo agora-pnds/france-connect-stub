@@ -1,9 +1,11 @@
 package fr.gouv.franceconnect.stub.api;
 
+import static fr.gouv.franceconnect.stub.util.SessionCache.CACHE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -16,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.gouv.franceconnect.stub.util.CacheUtil;
-import fr.gouv.franceconnect.stub.util.ConfigUtil;
 
 /**
  * Stub for Token France Connect endpoint.
@@ -35,11 +36,11 @@ public class Token extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException {
-        final String email = req.getParameter("code");
-        final String nonce = (String) req.getSession().getAttribute(ConfigUtil.NONCE_ATTR_NAME);
+        final String email = URLEncoder.encode(req.getParameter("code"), UTF_8.displayName());
+        final String nonce = CACHE.get(email);
 
-        // Remove nonce, one shot use
-        req.getSession().removeAttribute(ConfigUtil.NONCE_ATTR_NAME);
+        logger.debug("Fetched {} for key {} from cache", nonce, email);
+
         if (StringUtils.isBlank(nonce)) {
             throw new IllegalArgumentException("No nonce found for this session.");
         }
@@ -59,7 +60,5 @@ public class Token extends HttpServlet {
         final PrintWriter out = resp.getWriter();
         out.print(json);
         out.flush();
-
-        logger.info("Nonce removed from nonces for user {}", email);
     }
 }

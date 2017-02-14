@@ -1,8 +1,11 @@
 package fr.gouv.franceconnect.stub.api;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +26,11 @@ public class Userinfo extends HttpServlet {
             throws ServletException, IOException {
         final String bearer = req.getHeader("Authorization");
         // Header should contains 'Bearer <token>'
-        final String token = bearer.split(" ")[1];
+        final String token = URLDecoder.decode(bearer.split(" ")[1], UTF_8.displayName());
         final String json = CacheUtil.getJsonForToken(token);
-        resp.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
-        resp.setContentType("application/json");
-        final PrintWriter out = resp.getWriter();
+        resp.setContentType("application/json; charset=" + UTF_8.displayName().toLowerCase());
+        final PrintWriter out = new PrintWriter(new OutputStreamWriter(
+                resp.getOutputStream(), UTF_8), true);
         out.print(json);
         out.flush();
     }
