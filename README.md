@@ -11,7 +11,7 @@ a stub for France Connect OpenIdConnect provider (https://franceconnect.gouv.fr)
 # Build
 
 ```sh
-git clone https://github.com/tchabaud/france-connect-stub
+git clone https://github.com/agora-pnds/france-connect-stub
 cd france-connect-stub
 mvn clean compile package
 ```
