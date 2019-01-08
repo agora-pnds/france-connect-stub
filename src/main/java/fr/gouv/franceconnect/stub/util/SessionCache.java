@@ -1,17 +1,17 @@
 package fr.gouv.franceconnect.stub.util;
 
-import java.util.concurrent.ConcurrentHashMap;
-
+import fr.gouv.franceconnect.stub.exceptions.CacheException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.gouv.franceconnect.stub.exceptions.CacheException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public enum SessionCache {
     CACHE;
 
-    private final ConcurrentHashMap<String, String> cache;
+    private final Map<String, String> cache;
 
     private final Logger logger = LoggerFactory.getLogger(SessionCache.class);
 
