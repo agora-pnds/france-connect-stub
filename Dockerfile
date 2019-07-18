@@ -15,7 +15,7 @@ RUN git clone ${REPO_URL} \
     && cd $(basename ${REPO_URL}) \
     && mvn clean install
 
-FROM adoptopenjdk/openjdk8
+FROM adoptopenjdk/openjdk8:alpine-slim
 
 ENV HTTP_PORT=1234
 ENV STUBS_FOLDER=/opt/stubs
