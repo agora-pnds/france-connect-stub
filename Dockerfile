@@ -23,7 +23,4 @@ ENV STUBS_FOLDER=/opt/stubs
 RUN mkdir -p /opt/stubs
 COPY --from=builder /src/*/target/*.jar /opt
 
-CMD ["sh", "-c", "java", "-jar",
-    "/opt/france-connect-stub.jar",
-    "-httpPort=${HTTP_PORT}",
-    "-Ddir.stub=${STUBS_FOLDER}"]
+CMD ["sh", "-c", "java", "-jar", "/opt/france-connect-stub.jar", "-httpPort=${HTTP_PORT}", "-Ddir.stub=${STUBS_FOLDER}"]
