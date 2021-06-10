@@ -32,7 +32,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.1.7</version>
+            <version>1.2.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -120,7 +120,7 @@
                                 <dependency>
                                     <groupId>ch.qos.logback</groupId>
                                     <artifactId>logback-core</artifactId>
-                                    <version>1.1.7</version>
+                                    <version>1.2.0</version>
                                 </dependency>
                             </extraDependencies>
                             <finalName>france-connect-stub.jar</finalName>
